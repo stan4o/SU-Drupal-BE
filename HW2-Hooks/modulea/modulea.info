@@ -1,0 +1,5 @@
+name = Module A
+description = This is the custom Module A
+core = 7.x
+package = SoftUni
+configure = admin/config/content/modulea-config

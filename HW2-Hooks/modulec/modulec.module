@@ -1,0 +1,11 @@
+<?php
+
+/* 
+ * Implements hook_modulea_config()
+ */
+
+function modulec_modulea_config() {
+  
+  return t("This text comes from Module C");
+  
+}

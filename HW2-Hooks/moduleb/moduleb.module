@@ -1,0 +1,27 @@
+<?php
+
+/*
+ * Implements hook_modulea_config()
+ */
+
+function moduleb_modulea_config() {
+  
+  return t("This text comes from module B");
+  
+}
+
+/*
+ * Implements hook_form_FORM_ID_alter() for modulea_admin_settings()
+ */
+
+function moduleb_form_modulea_admin_settings_alter(&$form, &$form_state) {
+  
+  $form['modulea_added_by_moduleb'] = array(
+    '#type' => 'textfield',
+    '#title' => t("Text field added by Mobule B"),
+    '#size' => 60,
+    '#maxlength' => 120,
+    '#required' => true
+  );
+  
+}

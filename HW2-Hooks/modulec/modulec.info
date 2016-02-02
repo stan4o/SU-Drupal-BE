@@ -1,0 +1,6 @@
+name = Module C
+description = This is my custom Module C
+core = 7.x
+package = SoftUni
+dependencies[] = modulea
+configure = admin/config/content/modulec-config

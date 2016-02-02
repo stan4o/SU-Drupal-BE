@@ -1,0 +1,54 @@
+<?php
+
+/*
+ * Implements hook_permission()
+ */
+
+function modulea_permission() {
+  return array(
+    'administer modulea' => array(
+      'title' => t('Administer Module A'),
+      'description' => t('Perform administration taks over Module A.')
+    )
+  );
+}
+
+/*
+ * Implements hook_menu()
+ */
+
+function modulea_menu() {
+  $items['admin/config/content/modulea-config'] = array(
+    'title' => t('Module A configuration page'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('modulea_admin_settings'),
+    'access arguments' => array('administer modulea'),
+    'file' => 'modulea.admin.inc',
+    'type' => MENU_NORMAL_ITEM
+  );
+
+  return $items;
+}
+
+/*
+ * Implements hook_help()
+ */
+
+function modulea_help($path, $arg) {
+  switch ($path) {
+    case 'admin/config/content/modulea-config':
+      return '<p>' . t('Module A help text') . '</p>';
+      break;
+
+    case 'admin/help#modulea':
+      return '<p>' . t('This is the full help page of Module A. Here you can find all the available information for this module.') . '</p>';
+      break;
+  }
+}
+
+/*
+ * Cutom hook for Module A
+ */
+function hook_modulea_config() {
+  return "";
+}

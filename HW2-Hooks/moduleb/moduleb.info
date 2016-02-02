@@ -1,0 +1,6 @@
+name = Module B
+description = This is my custom Module B
+core = 7.x
+package = SoftUni
+dependencies[] = modulea
+configure = admin/config/content/moduleb-config
