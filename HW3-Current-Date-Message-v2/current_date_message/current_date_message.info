@@ -1,0 +1,5 @@
+name = Current Date Message
+description = Shows the current date as a message on all pages.
+core = 7.x
+package = SoftUni
+configure = admin/config/current-date-message

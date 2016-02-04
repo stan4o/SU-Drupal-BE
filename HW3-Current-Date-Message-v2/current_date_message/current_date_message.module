@@ -1,0 +1,77 @@
+<?php
+
+/*
+ * Implement hook_init() 
+ * $is_enabled - checks if the functionality is enabled/disabled
+ * $message_type - it can be status|warning|error
+ * $message_body - the body of the message
+ */
+
+function current_date_message_init() {
+  $is_enabled = variable_get('cdm_is_enabled');
+  $is_anonymous_allowed = variable_get('cdm_show_for_anonymous', 0);
+  
+  if ($is_enabled) {
+    $message_body = "Today is " . date('l, F j, Y');
+    $message_type = variable_get('cdm_message_type');
+    
+    if(user_is_logged_in()){
+      drupal_set_message($message_body, $message_type);
+    } else {
+      if ($is_anonymous_allowed){
+        drupal_set_message($message_body, $message_type);
+      }
+    }  
+  }
+}
+
+/*
+ * Implement hook_menu()
+ */
+
+function current_date_message_menu() {
+  $items['admin/config/current-date-message'] = array(
+    'title' => t('Current Date Message'),
+    'description' => t('This is the settings page for the Current Date Message module'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('current_date_message_form_default'),
+    'file' => 'includes/current_date_message_admin.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer current date message'),
+    'type' => MENU_NORMAL_ITEM
+    );
+  
+  $items['admin/config/current-date-message/default'] = array(
+    'title' => t('Default'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10
+  );
+  
+  $items['admin/config/current-date-message/advanced'] = array( 
+    'title' => t('Advanced'),
+    'description' => t('This is the advanced settings page.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('current_date_message_form_advanced'),
+    'file' => 'includes/current_date_message_admin.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer current date message'),
+    'type' => MENU_LOCAL_TASK
+  );
+  
+  return $items;
+}
+
+/*
+ * Implements hook_permission()
+ */
+
+function current_date_message_permission() {
+  $permission = array(
+    'administer current date message' => array(
+      'title' => t('Administer Current Date Message module'),
+      'description' => t('Perform administrative actions tasks for the Current Date Message module.')
+    )
+  );
+  
+  return $permission;
+}
